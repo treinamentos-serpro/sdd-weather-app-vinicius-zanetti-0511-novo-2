@@ -78,6 +78,26 @@ pnpm test:e2e        # testes E2E (Playwright)
 
 ---
 
+## Publicação no GitHub Pages
+
+O workflow `.github/workflows/pages.yml` publica o app na raiz do site do Pages
+(`https://<organization>.github.io/<repository>/`). Antes do build, ele consulta
+`actions/configure-pages` e passa o `base_path` retornado para `VITE_BASE`.
+Assim, os arquivos JavaScript e CSS usam o subdiretório correto, inclusive quando
+o endereço do Pages muda. As URLs externas da API Open-Meteo não são alteradas.
+
+Para reproduzir o build em um subdiretório localmente:
+
+```bash
+VITE_BASE=/meu-repositorio/ pnpm build
+VITE_BASE=/meu-repositorio/ pnpm preview
+# Acesse http://localhost:4173/meu-repositorio/
+```
+
+Sem `VITE_BASE`, o desenvolvimento e o build local continuam usando `/`.
+
+---
+
 ## Arquitetura do app
 
 ```text
