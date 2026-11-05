@@ -5,9 +5,9 @@ A automação de deploy já está pronta no repositório.
 ## Como funciona
 
 O workflow [`.github/workflows/pages.yml`](../../.github/workflows/pages.yml)
-dispara em push para `main`:
+dispara após o sucesso do workflow `SDD Guard` na `main` ou manualmente:
 
-1. **Build do app** com `VITE_BASE=/${{ github.event.repository.name }}/app/` —
+1. **Build do app** com `VITE_BASE=${{ steps.pages.outputs.base_path }}/app/` —
    garante que os assets apontem para o subcaminho correto do Pages.
 2. **Montagem do `_site`:**
    - `docs/*` → raiz (site do workshop),
@@ -32,7 +32,7 @@ Sem isso, os assets seriam buscados na raiz do domínio e dariam 404.
 
 ```bash
 VITE_BASE=/sdd-weather-app/app/ pnpm build
-pnpm preview
+VITE_BASE=/sdd-weather-app/app/ pnpm preview
 ```
 
 ## Configuração do repositório (uma vez)
